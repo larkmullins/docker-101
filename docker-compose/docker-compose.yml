@@ -1,0 +1,23 @@
+version: '3'
+services:
+  service:
+    build:
+      context: ../src
+      dockerfile: ./lib/service.dockerfile
+    container_name: service
+    image: docker/service:1.0.1
+    ports:
+      - 9898:9898
+    working_dir: /workspace
+    links:
+      - database
+  database:
+    build:
+      context: ../src
+      dockerfile: ../docker-compose/lib/database.dockerfile
+    container_name: database
+    image: docker/database:1.0.1
+    ports:
+      - 5432:5432
+    volumes:
+      - ./lib/_seed.sql:/docker-entrypoint-initdb.d/seed.sql

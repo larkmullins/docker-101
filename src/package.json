@@ -1,0 +1,14 @@
+{
+    "name": "docker-101",
+    "version": "1.0.1",
+    "description": "Docker 101",
+    "author": "Apiture Engineering",
+    "main": "application.js",
+    "scripts": {
+      "start": "node application.js"
+    },
+    "dependencies": {
+      "express": "^4.16.1",
+      "pg": "^7.6.0"
+    }
+  }
