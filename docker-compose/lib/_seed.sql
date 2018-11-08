@@ -30,7 +30,7 @@ CREATE ROLE fis WITH
 	PASSWORD 'secret';
 
 --
--- DATABASE: AyebitJpZG BEGIN
+-- DATABASE: fis BEGIN
 --
 
 --
