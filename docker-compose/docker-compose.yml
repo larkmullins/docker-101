@@ -1,19 +1,21 @@
 version: '3'
 services:
   service:
-    # build:
-    #   context: ../src
-    #   dockerfile: ./lib/service.dockerfile
+    build:
+      context: .
+      dockerfile: ./lib/service.dockerfile
     container_name: service
     image: docker/service:101
     ports:
       - 8080:8080
     links:
       - database
+    volumes:
+      - ../src:/usr/src/app
   database:
-    # build:
-    #   context: ../src
-    #   dockerfile: ../docker-compose/lib/database.dockerfile
+    build:
+      context: .
+      dockerfile: ./lib/database.dockerfile
     container_name: database
     image: docker/database:101
     ports:

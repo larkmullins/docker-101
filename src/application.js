@@ -4,7 +4,7 @@ var express = require('express');
 var pg = require("pg");
 
 // PostgreSQL Connection
-var connectionString = "postgres://postgres:123@localhost:5432/postgres";
+var connectionString = "postgres://fis:secret@database:5432";
 
 // Constants
 const PORT = 8080;
@@ -14,24 +14,19 @@ const HOST = '0.0.0.0';
 const app = express();
 app.get('/', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ "message": "Hello Docker 101" }));
+  res.send(JSON.stringify({ "message": "Hello World!" }));
 });
 
 app.get('/fis', (req, res) => {
-  pg.connect(connectionString,function(err,client,done) {
-      if(err){
-          console.log("not able to get connection "+ err);
-          res.status(400).send(err);
-      } 
-      client.query('SELECT * FROM fis', [1],function(err,result) {
-          done(); // closing the connection;
-          if(err){
-              console.log(err);
-              res.status(400).send(err);
-          }
-          res.status(200).send(result.rows);
-      });
-  });
+    const client = new pg.Client({
+        connectionString: connectionString,
+    })
+    client.connect()
+
+    client.query('SELECT * FROM fis', (err, results) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(results.rows);
+    })
 });
 
 app.listen(PORT, HOST);
